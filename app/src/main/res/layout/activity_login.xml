@@ -1,9 +1,9 @@
-<<<<<<< HEAD
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@drawable/fond">
 
     <TextView
         android:layout_width="fill_parent"
@@ -12,13 +12,18 @@
         android:layout_marginRight="10dip"
         android:layout_marginTop="20dip"
         android:gravity="center"
-        android:text="Login" />
+        android:text="Login"
+        android:textColor="@color/list_background"
+        android:textSize="25dip"
+        android:textStyle="bold" />
 
     <EditText android:id="@+id/txtLogin"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dip"
         android:layout_margin="10dip"
-        android:layout_marginBottom="20dip"/>
+        android:layout_marginBottom="20dip"
+        android:inputType="textPersonName"
+        android:background="#ffffff" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -26,13 +31,17 @@
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
         android:gravity="center"
-        android:text="Mot de passe" />
+        android:text="Mot de passe"
+        android:textColor="@color/list_background"
+        android:textSize="25dip"
+        android:textStyle="bold" />
 
     <EditText android:id="@+id/txtMdp"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dip"
         android:layout_margin="10dip"
-        android:layout_marginBottom="20dip"/>
+        android:layout_marginBottom="20dip"
+        android:background="#ffffff" />
 
     <Button
         android:id="@+id/btnRegister"
@@ -40,24 +49,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dip"
         android:gravity="center_vertical|center_horizontal"
-        android:text="Se connecter" />
+        android:text="Connexion"
+        android:background="@color/list_background"
+        android:textColor="#ffffff"
+        android:textSize="25dip"
+        android:textStyle="bold" />
 
 </LinearLayout>
-=======
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".LoginActivity">
 
-    <TextView
-        android:text="@string/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
-</RelativeLayout>
->>>>>>> 5faaf3bb74892b1a00fa3dbf799a1e152cfbb18b
