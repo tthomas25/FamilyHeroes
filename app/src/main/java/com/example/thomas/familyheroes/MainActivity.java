@@ -15,11 +15,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +32,10 @@ import com.google.android.gcm.GCMRegistrar;
 import com.example.thomas.familyheroes.NavDrawerListAdapter;
 import com.example.thomas.familyheroes.NavDrawerItem;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -50,8 +56,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class MainActivity extends Activity {
+
+    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
 
     // Asyntask
     AsyncTask<Void, Void, Void> mRegisterTask;
@@ -85,12 +100,44 @@ public class MainActivity extends Activity {
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
 
+    TextView txtProfil;
+    TextView txtRythme;
+    TextView txtRythme1;
+    TextView txtRythme2;
+    TextView txtTension;
+    TextView txtTension1;
+    TextView txtTension2;
+    TextView txtTemperature;
+    TextView txtTemperature1;
+    TextView txtTemperature2;
+
+    ImageView imageProfil;
+    ImageView imageRythme;
+    ImageView imageTension;
+    ImageView imageTemperature;
+    ImageView backProfil;
+    ImageView fleche;
+
+
+    String id_personne_age = "1";
+
+    JSONParser jsonParser = new JSONParser();
+
+    private static final String url_sauvegarde_details = "http://thomaslanternier.fr/family_heroes/src/getSauvegarde.php";
+
+    private static final String TAG_SUCCESS = "success";
+    private static final String TAG_PRODUCT = "signe_vitaux";
+    private static final String TAG_PID = "id_personne_age";
+    private static final String TAG_NAME = "name";
+    private static final String TAG_PRICE = "price";
+    private static final String TAG_DESCRIPTION = "description";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        StrictMode.setThreadPolicy(policy);
         getActionBar().setTitle("");
 
         LayoutInflater inflator = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -144,6 +191,9 @@ public class MainActivity extends Activity {
             if (GCMRegistrar.isRegisteredOnServer(this)) {
                 // Skips registration.
                 Toast.makeText(getApplicationContext(), "Already registered with GCM ", Toast.LENGTH_LONG).show();
+
+
+
             } else {
                 // Try to register again, but not in the UI thread.
                 // It's also necessary to cancel the thread onDestroy(),
@@ -328,6 +378,7 @@ public class MainActivity extends Activity {
         switch (position) {
             case 0:
                 fragment = new HomeFragment();
+                 new getSauvegardeDetails().execute();
                 break;
             case 1:
                 fragment = new FindPeopleFragment();
@@ -391,5 +442,155 @@ public class MainActivity extends Activity {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    class getSauvegardeDetails extends AsyncTask<String, String, String> {
+
+
+        /**
+         * Getting product details in background thread
+         */
+        protected String doInBackground(String... params) {
+
+            // updating UI from Background Thread
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    // Check for success tag
+                    int success;
+                    try {
+                        // Building Parameters
+                        List<NameValuePair> params = new ArrayList<NameValuePair>();
+                        params.add(new BasicNameValuePair("id_personne_age", id_personne_age));
+
+                        // getting product details by making HTTP request
+                        // Note that product details url will use GET request
+                        JSONObject json = jsonParser.makeHttpRequest(
+                                url_sauvegarde_details, "GET", params);
+
+                        // check your log for json response
+                        Log.d("Single Sauvegarde Details", json.toString());
+
+                        // json success tag
+                        success = json.getInt(TAG_SUCCESS);
+                        if (success == 1) {
+                            // successfully received product details
+                            JSONArray sauvegardeObj = json
+                                    .getJSONArray(TAG_PRODUCT); // JSON Array
+
+                            // get first product object from JSON Array
+                            JSONObject sauvegarde = sauvegardeObj.getJSONObject(0);
+
+
+                            txtProfil = (TextView) findViewById(R.id.profil);
+                            txtRythme = (TextView) findViewById(R.id.rythme_cardiaque);
+                            txtRythme1 = (TextView) findViewById(R.id.txtRythme);
+                            txtRythme2 = (TextView) findViewById(R.id.txtRythme2);
+                            txtTemperature = (TextView) findViewById(R.id.temperature);
+                            txtTemperature1 = (TextView) findViewById(R.id.txtTemperature1);
+                            txtTemperature2 = (TextView) findViewById(R.id.txtTemperature2);
+                            txtTension = (TextView) findViewById(R.id.tension);
+                            txtTension1 = (TextView) findViewById(R.id.txtTension);
+                            txtTension2 = (TextView) findViewById(R.id.txtTension2);
+
+                            imageProfil = (ImageView) findViewById(R.id.imageProfil);
+                            imageRythme = (ImageView) findViewById(R.id.imageRythme);
+                            imageTension = (ImageView) findViewById(R.id.imageTension);
+                            imageTemperature = (ImageView) findViewById(R.id.imageTemp);
+                            backProfil = (ImageView) findViewById(R.id.backProfil);
+                            fleche = (ImageView) findViewById(R.id.flecheTension);
+
+                            int rythme = Integer.parseInt(sauvegarde.getString("rythme_cardiaque"));
+                            int temperature = Integer.parseInt(sauvegarde.getString("temperature"));
+                            int tension = Integer.parseInt(sauvegarde.getString("tension"));
+
+                            imageProfil.setImageResource(R.drawable.profil);
+                            String url = "http://www.thomaslanternier.fr/family_heroes/avatar/profil-mamie.jpg";
+
+                            try {
+                                URL newurl = new URL(url);
+                                backProfil.setImageBitmap(BitmapFactory.decodeStream(newurl.openConnection().getInputStream()));
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+
+                            if(rythme < 70)
+                            {
+                                imageRythme.setImageResource(R.drawable.rc_bleu);
+                                txtRythme1.setText("Rythme cardiaque : Faible");
+                            }
+                            else if(rythme >= 70 && rythme <= 110)
+                            {
+                                imageRythme.setImageResource(R.drawable.rc_vert);
+                                txtRythme1.setText("Rythme cardiaque : Normal");
+                            }
+                            else if(rythme > 110)
+                            {
+                                imageRythme.setImageResource(R.drawable.rc_rouge);
+                                txtRythme1.setText("Rythme cardiaque : Elevé");
+                            }
+                            txtRythme.setText(""+rythme);
+                            txtRythme2.setText(""+rythme+" battements");
+
+                            if(temperature <= 36)
+                            {
+                                imageTemperature.setImageResource(R.drawable.temp_bas);
+                                txtTemperature1.setText("Température : Basse");
+                            }
+                            else if(temperature>36 && temperature<=38)
+                            {
+                                imageTemperature.setImageResource(R.drawable.temp_moyen);
+                                txtTemperature1.setText("Température : Normale");
+                            }
+                            else if(temperature>38)
+                            {
+                                imageTemperature.setImageResource(R.drawable.temp_haut);
+                                txtTemperature1.setText("Température : Haute");
+                            }
+                            txtTemperature.setText(""+temperature);
+                            txtTemperature2.setText(""+temperature+"° celsius");
+
+                            imageTension.setImageResource(R.drawable.tension);
+                            fleche.setImageResource(R.drawable.tension_fleche);
+
+                            txtTension.setText(""+(tension/10));
+
+                            if((tension/10)<9)
+                            {
+                                txtTension1.setText("Tension : Faible");
+                                fleche.setRotation(-60);
+                                fleche.setTranslationX(-100);
+                                fleche.setTranslationY(60);
+                            }
+                            else if((tension/10) >=9 && (tension/10) <=15)
+                            {
+                                txtTension1.setText("Tension : Normale");
+                                fleche.setRotation(0);
+
+                            }
+                            else if((tension/10) > 15)
+                            {
+                                txtTension1.setText("Tension : Elevée");
+
+                                fleche.setRotation(60);
+                                fleche.setTranslationX(100);
+                                fleche.setTranslationY(60);
+                            }
+
+                            txtTension2.setText(""+tension+" mm de mercure");
+
+
+                        } else {
+                            // product with pid not found
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            return null;
+        }
+
+
     }
 }

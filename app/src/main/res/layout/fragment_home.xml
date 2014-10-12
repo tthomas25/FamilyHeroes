@@ -3,27 +3,188 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<TextView
-        android:id="@+id/txtLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textSize="16dp"
-        android:text="Home"/>
+    <ImageView
+        android:layout_width="130sp"
+        android:layout_height="130sp"
+        android:id="@+id/backProfil"
+        android:layout_alignEnd="@+id/profil"
+        android:layout_alignParentStart="false"
+        android:layout_marginTop="40sp" />
 
-    <ImageView android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtLabel"
-        android:src="@drawable/ic_home"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
+    <ImageView
+        android:layout_width="190sp"
+        android:layout_height="190sp"
+        android:id="@+id/imageProfil"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"/>
 
-    <TextView android:id="@+id/lblMessage"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16dip"
-        android:layout_margin="10dip"
-        android:textColor="#000000"/>-->
+    <TextView android:id="@+id/profil"
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:textSize="25sp"
+        android:textColor="#ffffff"
+        android:textAlignment="center"
+        android:layout_alignBottom="@+id/imageProfil"
+        android:layout_alignEnd="@+id/imageProfil"
+        android:layout_marginRight="33sp"
+        android:layout_marginBottom="52sp"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentEnd="false" />
+
+
+    <ImageView
+        android:layout_width="190sp"
+        android:layout_height="190sp"
+        android:id="@+id/imageRythme"
+        android:layout_toStartOf="@+id/imageProfil"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:background="#c2c2c2"
+        android:paddingLeft="1dp"/>
+
+    <TextView
+        android:layout_width="190dip"
+        android:layout_height="40dip"
+        android:text=""
+        android:id="@+id/txtRythme"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/imageProfil"
+        android:layout_alignEnd="@+id/imageRythme"
+        android:gravity="center"
+        android:textColor="@color/list_background"
+        android:textStyle="bold"
+        android:textSize="14dip" />
+
+    <TextView
+        android:layout_width="190dip"
+        android:layout_height="40dip"
+        android:text=""
+        android:id="@+id/txtRythme2"
+        android:layout_toEndOf="@+id/imageProfil"
+        android:gravity="center"
+        android:textColor="@color/list_background"
+        android:textStyle="bold"
+        android:textSize="14dip"
+        android:layout_alignBottom="@+id/imageRythme"
+        android:layout_alignStart="@+id/imageRythme" />
+
+    <TextView android:id="@+id/rythme_cardiaque"
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:textSize="25sp"
+        android:textColor="#ffffff"
+        android:textAlignment="center"
+        android:layout_alignBottom="@+id/imageRythme"
+        android:layout_alignEnd="@+id/imageRythme"
+        android:layout_marginRight="33sp"
+        android:layout_marginBottom="52sp"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentEnd="false"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="190sp"
+        android:layout_height="190sp"
+        android:id="@+id/imageTension"
+        android:layout_below="@+id/imageProfil"
+        android:layout_toStartOf="@+id/imageRythme"
+        android:layout_alignEnd="@id/imageProfil"
+        android:background="#c2c2c2"
+        android:padding="1dp"
+        android:textSize="20sp" />
+
+    <TextView android:id="@+id/tension"
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:textSize="25sp"
+        android:textColor="@color/list_background"
+        android:textAlignment="center"
+        android:layout_alignBottom="@+id/imageTension"
+        android:layout_alignEnd="@+id/imageTension"
+        android:layout_marginRight="68sp"
+        android:layout_marginBottom="48sp"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentEnd="false"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="190dip"
+        android:layout_height="40dip"
+        android:text=""
+        android:id="@+id/txtTension"
+        android:gravity="center"
+        android:textColor="@color/list_background"
+        android:textStyle="bold"
+        android:textSize="14dip"
+        android:layout_alignTop="@+id/imageTension"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="190dip"
+        android:layout_height="40dip"
+        android:text=""
+        android:id="@+id/txtTension2"
+        android:gravity="center"
+        android:textColor="@color/list_background"
+        android:textStyle="bold"
+        android:textSize="14dip"
+        android:layout_alignBottom="@+id/imageTension"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="190sp"
+        android:layout_height="190sp"
+        android:id="@+id/imageTemp"
+        android:layout_toStartOf="@+id/imageTension"
+        android:layout_alignTop="@+id/imageTension"
+        android:layout_alignEnd="@+id/imageRythme"
+        android:background="#c2c2c2"
+        android:padding="1dp"/>
+
+    <TextView android:id="@+id/temperature"
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:textSize="25sp"
+        android:textColor="@color/list_background"
+        android:textAlignment="center"
+        android:layout_alignBottom="@+id/imageTemp"
+        android:layout_alignEnd="@+id/imageTemp"
+        android:layout_marginRight="50sp"
+        android:layout_marginBottom="70sp"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentEnd="false"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="190dip"
+        android:layout_height="40dip"
+        android:text=""
+        android:id="@+id/txtTemperature1"
+        android:gravity="center"
+        android:textColor="@color/list_background"
+        android:textStyle="bold"
+        android:textSize="14dip"
+        android:layout_below="@+id/imageRythme"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="190dip"
+        android:layout_height="40dip"
+        android:text=""
+        android:id="@+id/txtTemperature2"
+        android:gravity="center"
+        android:textColor="@color/list_background"
+        android:textStyle="bold"
+        android:textSize="14dip"
+        android:layout_alignBottom="@+id/imageTemp"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="40dip"
+        android:layout_height="80dip"
+        android:id="@+id/flecheTension"
+        android:layout_below="@+id/txtTension"
+        android:layout_toStartOf="@+id/profil" />
 
 
 </RelativeLayout>
