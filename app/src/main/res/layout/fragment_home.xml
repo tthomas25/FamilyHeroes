@@ -1,35 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#576873">
 
     <ImageView
         android:layout_width="130sp"
         android:layout_height="130sp"
         android:id="@+id/backProfil"
-        android:layout_alignEnd="@+id/profil"
-        android:layout_alignParentStart="false"
-        android:layout_marginTop="40sp" />
+        android:layout_marginLeft="30sp"
+        android:layout_below="@+id/txtRythme" />
 
     <ImageView
         android:layout_width="190sp"
         android:layout_height="190sp"
         android:id="@+id/imageProfil"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="50sp" />
 
-    <TextView android:id="@+id/profil"
+    <TextView
         android:layout_width="40sp"
         android:layout_height="40sp"
-        android:textSize="25sp"
+        android:layout_alignLeft="@+id/imageProfil"
+        android:layout_alignTop="@+id/imageProfil"
+        android:layout_marginLeft="30sp"
+        android:layout_marginTop="45sp"
         android:textColor="#ffffff"
-        android:textAlignment="center"
-        android:layout_alignBottom="@+id/imageProfil"
-        android:layout_alignEnd="@+id/imageProfil"
-        android:layout_marginRight="33sp"
-        android:layout_marginBottom="52sp"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentEnd="false" />
+        android:textSize="20sp"
+        android:id="@+id/age"/>
+
+    <TextView
+        android:layout_width="150sp"
+        android:layout_height="40sp"
+        android:layout_alignLeft="@+id/imageProfil"
+        android:layout_alignTop="@+id/imageProfil"
+        android:layout_marginLeft="20sp"
+        android:layout_marginTop="10sp"
+        android:textColor="@color/list_background"
+        android:textSize="15sp"
+        android:id="@+id/nom"/>
 
 
     <ImageView
@@ -40,20 +50,21 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:background="#c2c2c2"
-        android:paddingLeft="1dp"/>
+        android:paddingLeft="1dp"
+        android:layout_marginTop="50sp" />
 
     <TextView
         android:layout_width="190dip"
         android:layout_height="40dip"
         android:text=""
         android:id="@+id/txtRythme"
-        android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/imageProfil"
-        android:layout_alignEnd="@+id/imageRythme"
         android:gravity="center"
         android:textColor="@color/list_background"
         android:textStyle="bold"
-        android:textSize="14dip" />
+        android:textSize="14dip"
+        android:layout_alignTop="@+id/imageRythme"
+        android:layout_alignStart="@+id/imageRythme" />
 
     <TextView
         android:layout_width="190dip"
@@ -92,6 +103,15 @@
         android:background="#c2c2c2"
         android:padding="1dp"
         android:textSize="20sp" />
+
+    <ImageView
+        android:layout_width="40dip"
+        android:layout_height="80dip"
+        android:id="@+id/flecheTension"
+        android:layout_alignBottom="@+id/imageTension"
+        android:layout_alignStart="@+id/imageTension"
+        android:layout_marginLeft="75sp"
+        android:layout_marginBottom="70dp"/>
 
     <TextView android:id="@+id/tension"
         android:layout_width="40sp"
@@ -180,11 +200,21 @@
         android:layout_alignParentEnd="true" />
 
     <ImageView
-        android:layout_width="40dip"
-        android:layout_height="80dip"
-        android:id="@+id/flecheTension"
-        android:layout_below="@+id/txtTension"
-        android:layout_toStartOf="@+id/profil" />
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:id="@+id/imageView3"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/user"
+        android:padding="5sp"/>
+
+    <TextView
+        android:layout_width="100sp"
+        android:layout_height="50sp"
+        android:layout_marginLeft="40sp"
+        android:id="@+id/profil"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:textSize="18sp"/>
 
 
 </RelativeLayout>

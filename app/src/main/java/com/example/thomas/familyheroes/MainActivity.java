@@ -15,6 +15,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -67,6 +68,14 @@ public class MainActivity extends Activity {
 
     StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
+    public static final String MyPREFERENCES = "MyPrefs" ;
+
+    SharedPreferences sharedpreferences;
+
+    public static final String Mail = "mailKey";
+    public static final String Mdp = "mdpKey";
+    public static final String idUser = "idKey";
+    public static final String prenomUser = "prenomKey";
 
     // Asyntask
     AsyncTask<Void, Void, Void> mRegisterTask;
@@ -78,8 +87,10 @@ public class MainActivity extends Activity {
     ConnectionDetector cd;
 
 
-    public static String login;
+    public static String mail;
     public static String mdp;
+    public static String id;
+    public static String prenom;
 
     public static String newMessage;
 
@@ -111,6 +122,9 @@ public class MainActivity extends Activity {
     TextView txtTemperature1;
     TextView txtTemperature2;
 
+    TextView age;
+    TextView nom;
+
     ImageView imageProfil;
     ImageView imageRythme;
     ImageView imageTension;
@@ -123,14 +137,12 @@ public class MainActivity extends Activity {
 
     JSONParser jsonParser = new JSONParser();
 
-    private static final String url_sauvegarde_details = "http://thomaslanternier.fr/family_heroes/src/getSauvegarde.php";
+    private static final String url_sauvegarde_details = "http://thomaslanternier.fr/family_heroes/app/getSauvegarde.php";
+    private static final String url_personneAgee_details = "http://thomaslanternier.fr/family_heroes/app/getPersonne.php";
 
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCT = "signe_vitaux";
-    private static final String TAG_PID = "id_personne_age";
-    private static final String TAG_NAME = "name";
-    private static final String TAG_PRICE = "price";
-    private static final String TAG_DESCRIPTION = "description";
+
 
 
     @Override
@@ -166,8 +178,12 @@ public class MainActivity extends Activity {
         // Getting name, email from intent
         Intent i = getIntent();
 
-        login = i.getStringExtra("login");
-        mdp = i.getStringExtra("mdp");
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+        mail = sharedpreferences.getString(Mail, "");
+        mdp = sharedpreferences.getString(Mdp, "");
+        id = sharedpreferences.getString(idUser, "");
+        prenom = sharedpreferences.getString(prenomUser, "");
 
         // Make sure the device has the proper dependencies.
         //GCMRegistrar.checkDevice(this);
@@ -205,7 +221,7 @@ public class MainActivity extends Activity {
                     protected Void doInBackground(Void... params) {
                         // Register on our server
                         // On server creates a new user
-                        ServerUtilities.register(context, login, mdp, regId);
+                        ServerUtilities.register(context, mail, mdp, regId);
                         return null;
                     }
 
@@ -379,6 +395,7 @@ public class MainActivity extends Activity {
             case 0:
                 fragment = new HomeFragment();
                  new getSauvegardeDetails().execute();
+                 new getPersonneAgeeDetails().execute();
                 break;
             case 1:
                 fragment = new FindPeopleFragment();
@@ -496,22 +513,15 @@ public class MainActivity extends Activity {
                             imageRythme = (ImageView) findViewById(R.id.imageRythme);
                             imageTension = (ImageView) findViewById(R.id.imageTension);
                             imageTemperature = (ImageView) findViewById(R.id.imageTemp);
-                            backProfil = (ImageView) findViewById(R.id.backProfil);
+
                             fleche = (ImageView) findViewById(R.id.flecheTension);
 
                             int rythme = Integer.parseInt(sauvegarde.getString("rythme_cardiaque"));
                             int temperature = Integer.parseInt(sauvegarde.getString("temperature"));
                             int tension = Integer.parseInt(sauvegarde.getString("tension"));
 
-                            imageProfil.setImageResource(R.drawable.profil);
-                            String url = "http://www.thomaslanternier.fr/family_heroes/avatar/profil-mamie.jpg";
+                            txtProfil.setText(prenom);
 
-                            try {
-                                URL newurl = new URL(url);
-                                backProfil.setImageBitmap(BitmapFactory.decodeStream(newurl.openConnection().getInputStream()));
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
 
                             if(rythme < 70)
                             {
@@ -577,6 +587,77 @@ public class MainActivity extends Activity {
                             }
 
                             txtTension2.setText(""+tension+" mm de mercure");
+
+
+                        } else {
+                            // product with pid not found
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            return null;
+        }
+
+
+    }
+
+
+    class getPersonneAgeeDetails extends AsyncTask<String, String, String> {
+
+
+        /**
+         * Getting product details in background thread
+         */
+        protected String doInBackground(String... params) {
+
+            // updating UI from Background Thread
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    // Check for success tag
+                    int success;
+                    try {
+                        // Building Parameters
+                        List<NameValuePair> params = new ArrayList<NameValuePair>();
+                        params.add(new BasicNameValuePair("id_user", id));
+
+                        // getting product details by making HTTP request
+                        // Note that product details url will use GET request
+                        JSONObject json = jsonParser.makeHttpRequest(
+                                url_personneAgee_details, "GET", params);
+
+                        // check your log for json response
+                        Log.d("Single Sauvegarde Details", json.toString());
+
+                        // json success tag
+                        success = json.getInt(TAG_SUCCESS);
+                        if (success == 1) {
+                            // successfully received product details
+                            JSONArray personneAgeeObj = json
+                                    .getJSONArray("details_personne"); // JSON Array
+
+                            // get first product object from JSON Array
+                            JSONObject personneAgee = personneAgeeObj.getJSONObject(0);
+
+                            age = (TextView) findViewById(R.id.age);
+                            nom = (TextView) findViewById(R.id.nom);
+                            backProfil = (ImageView) findViewById(R.id.backProfil);
+
+                            imageProfil.setImageResource(R.drawable.profil);
+                            age.setText(personneAgee.getString("age"));
+                            nom.setText(personneAgee.getString("prenom")+" "+personneAgee.getString("nom"));
+
+                            String url = personneAgee.getString("photo");
+
+                            try {
+                                URL newurl = new URL(url);
+                                backProfil.setImageBitmap(BitmapFactory.decodeStream(newurl.openConnection().getInputStream()));
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+
 
 
                         } else {

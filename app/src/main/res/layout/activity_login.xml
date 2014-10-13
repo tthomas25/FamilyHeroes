@@ -12,7 +12,7 @@
         android:layout_marginRight="10dip"
         android:layout_marginTop="20dip"
         android:gravity="center"
-        android:text="Login"
+        android:text="Email"
         android:textColor="@color/list_background"
         android:textSize="25dip"
         android:textStyle="bold" />
@@ -22,8 +22,9 @@
         android:layout_height="50dip"
         android:layout_margin="10dip"
         android:layout_marginBottom="20dip"
-        android:inputType="textPersonName"
-        android:background="#ffffff" />
+        android:background="#ffffff"
+        android:gravity="center"
+        android:inputType="textEmailAddress" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -41,7 +42,10 @@
         android:layout_height="50dip"
         android:layout_margin="10dip"
         android:layout_marginBottom="20dip"
-        android:background="#ffffff" />
+        android:background="#ffffff"
+        android:gravity="center"
+        android:password="true"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btnRegister"
