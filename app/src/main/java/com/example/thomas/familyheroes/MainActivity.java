@@ -20,6 +20,8 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -32,14 +34,15 @@ import com.google.android.gcm.GCMRegistrar;
 
 import com.example.thomas.familyheroes.NavDrawerListAdapter;
 import com.example.thomas.familyheroes.NavDrawerItem;
+import com.google.android.maps.MapView;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -64,7 +67,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 
     StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
@@ -110,38 +113,6 @@ public class MainActivity extends Activity {
 
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
-
-    TextView txtProfil;
-    TextView txtRythme;
-    TextView txtRythme1;
-    TextView txtRythme2;
-    TextView txtTension;
-    TextView txtTension1;
-    TextView txtTension2;
-    TextView txtTemperature;
-    TextView txtTemperature1;
-    TextView txtTemperature2;
-
-    TextView age;
-    TextView nom;
-
-    ImageView imageProfil;
-    ImageView imageRythme;
-    ImageView imageTension;
-    ImageView imageTemperature;
-    ImageView backProfil;
-    ImageView fleche;
-
-
-    String id_personne_age = "1";
-
-    JSONParser jsonParser = new JSONParser();
-
-    private static final String url_sauvegarde_details = "http://thomaslanternier.fr/family_heroes/app/getSauvegarde.php";
-    private static final String url_personneAgee_details = "http://thomaslanternier.fr/family_heroes/app/getPersonne.php";
-
-    private static final String TAG_SUCCESS = "success";
-    private static final String TAG_PRODUCT = "signe_vitaux";
 
 
 
@@ -275,8 +246,10 @@ public class MainActivity extends Activity {
         mDrawerList.setAdapter(adapter);
 
         // enabling action bar app icon and behaving it as toggle button
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayHomeAsUpEnabled(false);
         getActionBar().setHomeButtonEnabled(true);
+
+        getActionBar().setIcon(R.drawable.menu);
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.ic_drawer, //nav menu toggle icon
@@ -285,12 +258,14 @@ public class MainActivity extends Activity {
         ) {
             public void onDrawerClosed(View view) {
                 //getActionBar().setTitle(mTitle);
+                getActionBar().setIcon(R.drawable.menu);
                 // calling onPrepareOptionsMenu() to show action bar icons
                 invalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView) {
                 //getActionBar().setTitle(mDrawerTitle);
+                getActionBar().setIcon(R.drawable.close);
                 // calling onPrepareOptionsMenu() to hide action bar icons
                 invalidateOptionsMenu();
             }
@@ -340,6 +315,8 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onDestroy() {
+
+
         if (mRegisterTask != null) {
             mRegisterTask.cancel(true);
         }
@@ -354,7 +331,10 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         getMenuInflater().inflate(R.menu.main, menu);
+
+
         return true;
     }
 
@@ -381,6 +361,7 @@ public class MainActivity extends Activity {
         // if nav drawer is opened, hide the action items
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -391,14 +372,21 @@ public class MainActivity extends Activity {
         // update the main content by replacing fragments
         Fragment fragment = null;
 
+
         switch (position) {
             case 0:
                 fragment = new HomeFragment();
-                 new getSauvegardeDetails().execute();
-                 new getPersonneAgeeDetails().execute();
+                Bundle args = new Bundle();
+                args.putString("id", id);
+                args.putString("prenom", prenom);
+                fragment.setArguments(args);
                 break;
             case 1:
-                fragment = new FindPeopleFragment();
+                fragment = new HeartFragment();
+                Bundle args1 = new Bundle();
+                args1.putString("id", id);
+                args1.putString("prenom", prenom);
+                fragment.setArguments(args1);
                 break;
             case 2:
                 fragment = new PhotosFragment();
@@ -418,12 +406,11 @@ public class MainActivity extends Activity {
         }
 
         if (fragment != null) {
-            FragmentManager fragmentManager = getFragmentManager();
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
 
             fragmentManager.beginTransaction()
-                    .replace(R.id.frame_container, fragment).commit();
-
-
+                    .replace(R.id.frame_container,fragment).commit();
 
             // update selected item and title, then close the drawer
             mDrawerList.setItemChecked(position, true);
@@ -434,6 +421,7 @@ public class MainActivity extends Activity {
             // error in creating fragment
             Log.e("MainActivity", "Error in creating fragment");
         }
+
     }
 
     @Override
@@ -459,219 +447,5 @@ public class MainActivity extends Activity {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    class getSauvegardeDetails extends AsyncTask<String, String, String> {
-
-
-        /**
-         * Getting product details in background thread
-         */
-        protected String doInBackground(String... params) {
-
-            // updating UI from Background Thread
-            runOnUiThread(new Runnable() {
-                public void run() {
-                    // Check for success tag
-                    int success;
-                    try {
-                        // Building Parameters
-                        List<NameValuePair> params = new ArrayList<NameValuePair>();
-                        params.add(new BasicNameValuePair("id_personne_age", id_personne_age));
-
-                        // getting product details by making HTTP request
-                        // Note that product details url will use GET request
-                        JSONObject json = jsonParser.makeHttpRequest(
-                                url_sauvegarde_details, "GET", params);
-
-                        // check your log for json response
-                        Log.d("Single Sauvegarde Details", json.toString());
-
-                        // json success tag
-                        success = json.getInt(TAG_SUCCESS);
-                        if (success == 1) {
-                            // successfully received product details
-                            JSONArray sauvegardeObj = json
-                                    .getJSONArray(TAG_PRODUCT); // JSON Array
-
-                            // get first product object from JSON Array
-                            JSONObject sauvegarde = sauvegardeObj.getJSONObject(0);
-
-
-                            txtProfil = (TextView) findViewById(R.id.profil);
-                            txtRythme = (TextView) findViewById(R.id.rythme_cardiaque);
-                            txtRythme1 = (TextView) findViewById(R.id.txtRythme);
-                            txtRythme2 = (TextView) findViewById(R.id.txtRythme2);
-                            txtTemperature = (TextView) findViewById(R.id.temperature);
-                            txtTemperature1 = (TextView) findViewById(R.id.txtTemperature1);
-                            txtTemperature2 = (TextView) findViewById(R.id.txtTemperature2);
-                            txtTension = (TextView) findViewById(R.id.tension);
-                            txtTension1 = (TextView) findViewById(R.id.txtTension);
-                            txtTension2 = (TextView) findViewById(R.id.txtTension2);
-
-                            imageProfil = (ImageView) findViewById(R.id.imageProfil);
-                            imageRythme = (ImageView) findViewById(R.id.imageRythme);
-                            imageTension = (ImageView) findViewById(R.id.imageTension);
-                            imageTemperature = (ImageView) findViewById(R.id.imageTemp);
-
-                            fleche = (ImageView) findViewById(R.id.flecheTension);
-
-                            int rythme = Integer.parseInt(sauvegarde.getString("rythme_cardiaque"));
-                            int temperature = Integer.parseInt(sauvegarde.getString("temperature"));
-                            int tension = Integer.parseInt(sauvegarde.getString("tension"));
-
-                            txtProfil.setText(prenom);
-
-
-                            if(rythme < 70)
-                            {
-                                imageRythme.setImageResource(R.drawable.rc_bleu);
-                                txtRythme1.setText("Rythme cardiaque : Faible");
-                            }
-                            else if(rythme >= 70 && rythme <= 110)
-                            {
-                                imageRythme.setImageResource(R.drawable.rc_vert);
-                                txtRythme1.setText("Rythme cardiaque : Normal");
-                            }
-                            else if(rythme > 110)
-                            {
-                                imageRythme.setImageResource(R.drawable.rc_rouge);
-                                txtRythme1.setText("Rythme cardiaque : Elevé");
-                            }
-                            txtRythme.setText(""+rythme);
-                            txtRythme2.setText(""+rythme+" battements");
-
-                            if(temperature <= 36)
-                            {
-                                imageTemperature.setImageResource(R.drawable.temp_bas);
-                                txtTemperature1.setText("Température : Basse");
-                            }
-                            else if(temperature>36 && temperature<=38)
-                            {
-                                imageTemperature.setImageResource(R.drawable.temp_moyen);
-                                txtTemperature1.setText("Température : Normale");
-                            }
-                            else if(temperature>38)
-                            {
-                                imageTemperature.setImageResource(R.drawable.temp_haut);
-                                txtTemperature1.setText("Température : Haute");
-                            }
-                            txtTemperature.setText(""+temperature);
-                            txtTemperature2.setText(""+temperature+"° celsius");
-
-                            imageTension.setImageResource(R.drawable.tension);
-                            fleche.setImageResource(R.drawable.tension_fleche);
-
-                            txtTension.setText(""+(tension/10));
-
-                            if((tension/10)<9)
-                            {
-                                txtTension1.setText("Tension : Faible");
-                                fleche.setRotation(-60);
-                                fleche.setTranslationX(-100);
-                                fleche.setTranslationY(60);
-                            }
-                            else if((tension/10) >=9 && (tension/10) <=15)
-                            {
-                                txtTension1.setText("Tension : Normale");
-                                fleche.setRotation(0);
-
-                            }
-                            else if((tension/10) > 15)
-                            {
-                                txtTension1.setText("Tension : Elevée");
-
-                                fleche.setRotation(60);
-                                fleche.setTranslationX(100);
-                                fleche.setTranslationY(60);
-                            }
-
-                            txtTension2.setText(""+tension+" mm de mercure");
-
-
-                        } else {
-                            // product with pid not found
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-
-            return null;
-        }
-
-
-    }
-
-
-    class getPersonneAgeeDetails extends AsyncTask<String, String, String> {
-
-
-        /**
-         * Getting product details in background thread
-         */
-        protected String doInBackground(String... params) {
-
-            // updating UI from Background Thread
-            runOnUiThread(new Runnable() {
-                public void run() {
-                    // Check for success tag
-                    int success;
-                    try {
-                        // Building Parameters
-                        List<NameValuePair> params = new ArrayList<NameValuePair>();
-                        params.add(new BasicNameValuePair("id_user", id));
-
-                        // getting product details by making HTTP request
-                        // Note that product details url will use GET request
-                        JSONObject json = jsonParser.makeHttpRequest(
-                                url_personneAgee_details, "GET", params);
-
-                        // check your log for json response
-                        Log.d("Single Sauvegarde Details", json.toString());
-
-                        // json success tag
-                        success = json.getInt(TAG_SUCCESS);
-                        if (success == 1) {
-                            // successfully received product details
-                            JSONArray personneAgeeObj = json
-                                    .getJSONArray("details_personne"); // JSON Array
-
-                            // get first product object from JSON Array
-                            JSONObject personneAgee = personneAgeeObj.getJSONObject(0);
-
-                            age = (TextView) findViewById(R.id.age);
-                            nom = (TextView) findViewById(R.id.nom);
-                            backProfil = (ImageView) findViewById(R.id.backProfil);
-
-                            imageProfil.setImageResource(R.drawable.profil);
-                            age.setText(personneAgee.getString("age"));
-                            nom.setText(personneAgee.getString("prenom")+" "+personneAgee.getString("nom"));
-
-                            String url = personneAgee.getString("photo");
-
-                            try {
-                                URL newurl = new URL(url);
-                                backProfil.setImageBitmap(BitmapFactory.decodeStream(newurl.openConnection().getInputStream()));
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-
-
-
-                        } else {
-                            // product with pid not found
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-
-            return null;
-        }
-
-
     }
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fond">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="250sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/rythme"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/normal"
+        android:gravity="center"
+        android:textSize="90sp"
+        android:textColor="#ffffff"
+        android:text="80"
+        android:shadowColor="#000000"
+        android:shadowRadius="10"
+        android:shadowDx="4"
+        android:shadowDy="4"/>
+
+    <fragment
+        android:name="com.example.thomas.familyheroes.TabsFragment"
+        android:id="@+id/tabs_fragment"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        tools:layout="@layout/tabs_fragment"
+        android:layout_below="@+id/rythme" />
+
+</RelativeLayout>

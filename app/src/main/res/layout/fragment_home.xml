@@ -216,5 +216,14 @@
         android:gravity="center"
         android:textSize="18sp"/>
 
+    <android.support.v4.view.ViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/viewpager"
+        android:layout_below="@+id/imageTension"
+        android:layout_alignParentBottom="true">
+    </android.support.v4.view.ViewPager>
+
 
 </RelativeLayout>

@@ -9,6 +9,6 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/app_name"
         android:clickable="true"
-        android:src="@drawable/logo_mobile" />
+        android:src="@drawable/logo" />
 
 </LinearLayout>

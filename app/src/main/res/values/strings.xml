@@ -25,6 +25,8 @@
     <string name="drawer_open">Slider Menu Opened</string>
     <string name="drawer_close">Slider Menu Closed</string>
     <string name="nothing"></string>
+    <string name="tab_title_1">title 1</string>
+    <string name="tab_title_2">title 2</string>
 
     <!--<string-array name="nav_drawer_items">
         <item >Home</item>
@@ -36,12 +38,12 @@
     </string-array>-->
 
     <array name="nav_drawer_icons">
-        <item>@drawable/ic_home</item>
-        <item>@drawable/ic_people</item>
-        <item>@drawable/ic_photos</item>
-        <item>@drawable/ic_communities</item>
-        <item>@drawable/ic_pages</item>
-        <item>@drawable/ic_whats_hot</item>
+        <item>@drawable/user</item>
+        <item>@drawable/heart</item>
+        <item>@drawable/perf</item>
+        <item>@drawable/temp</item>
+        <item>@drawable/calendar</item>
+        <item>@drawable/param</item>
     </array>
 
     <string name="desc_list_item_icon">Item Icon</string>

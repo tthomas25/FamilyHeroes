@@ -3,7 +3,7 @@ package com.example.thomas.familyheroes;
 /**
  * Created by Thomas on 09/10/2014.
  */
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
