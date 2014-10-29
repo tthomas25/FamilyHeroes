@@ -1,22 +1,22 @@
-package com.example.thomas.familyheroes;
+package com.example.thomas.familyheroes.MainActivity;
 
 /**
  * Created by Thomas on 09/10/2014.
  */
-import static com.example.thomas.familyheroes.CommonUtilities.DISPLAY_MESSAGE_ACTION;
+import static com.example.thomas.familyheroes.MainActivity.CommonUtilities.DISPLAY_MESSAGE_ACTION;
 
 
-import static com.example.thomas.familyheroes.CommonUtilities.EXTRA_MESSAGE;
-import static com.example.thomas.familyheroes.CommonUtilities.SENDER_ID;
+import static com.example.thomas.familyheroes.MainActivity.CommonUtilities.EXTRA_MESSAGE;
+import static com.example.thomas.familyheroes.MainActivity.CommonUtilities.SENDER_ID;
 
 import android.app.ActionBar;
-import android.app.Activity;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.BitmapFactory;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -25,21 +25,23 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.widget.ImageView;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
 
+import com.example.thomas.familyheroes.CommunityFragment;
+import com.example.thomas.familyheroes.FragmentsMenu.FragmentsHeart.HeartFragment;
+import com.example.thomas.familyheroes.FragmentsMenu.FragmentsHome.HomeFragment;
+import com.example.thomas.familyheroes.FragmentsMenu.FragmentsTension.TensionFragment;
+import com.example.thomas.familyheroes.FragmentsMenu.NavDrawerItem;
+import com.example.thomas.familyheroes.FragmentsMenu.NavDrawerListAdapter;
+import com.example.thomas.familyheroes.PagesFragment;
+import com.example.thomas.familyheroes.R;
+import com.example.thomas.familyheroes.WhatsHotFragment;
 import com.google.android.gcm.GCMRegistrar;
 
-import com.example.thomas.familyheroes.NavDrawerListAdapter;
-import com.example.thomas.familyheroes.NavDrawerItem;
-import com.google.android.maps.MapView;
-
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
+
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -47,24 +49,13 @@ import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.os.Bundle;
-import android.util.Log;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 public class MainActivity extends FragmentActivity {
@@ -313,9 +304,9 @@ public class MainActivity extends FragmentActivity {
         }
     };
 
+
     @Override
     protected void onDestroy() {
-
 
         if (mRegisterTask != null) {
             mRegisterTask.cancel(true);
@@ -323,6 +314,7 @@ public class MainActivity extends FragmentActivity {
         try {
             unregisterReceiver(mHandleMessageReceiver);
             GCMRegistrar.onDestroy(this);
+
         } catch (Exception e) {
             Log.e("UnRegister Receiver Error", "> " + e.getMessage());
         }
@@ -368,7 +360,7 @@ public class MainActivity extends FragmentActivity {
     /**
      * Diplaying fragment view for selected nav drawer list item
      * */
-    private void displayView(int position) {
+    public void displayView(int position) {
         // update the main content by replacing fragments
         Fragment fragment = null;
 
@@ -389,7 +381,11 @@ public class MainActivity extends FragmentActivity {
                 fragment.setArguments(args1);
                 break;
             case 2:
-                fragment = new PhotosFragment();
+                fragment = new TensionFragment();
+                Bundle args2 = new Bundle();
+                args2.putString("id", id);
+                args2.putString("prenom", prenom);
+                fragment.setArguments(args2);
                 break;
             case 3:
                 fragment = new CommunityFragment();
@@ -410,7 +406,7 @@ public class MainActivity extends FragmentActivity {
             FragmentManager fragmentManager = getSupportFragmentManager();
 
             fragmentManager.beginTransaction()
-                    .replace(R.id.frame_container,fragment).commit();
+                    .replace(R.id.frame_container,fragment).commitAllowingStateLoss();
 
             // update selected item and title, then close the drawer
             mDrawerList.setItemChecked(position, true);
@@ -448,4 +444,6 @@ public class MainActivity extends FragmentActivity {
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+
+
 }

@@ -1,11 +1,11 @@
-package com.example.thomas.familyheroes;
+package com.example.thomas.familyheroes.MainActivity;
 
 /**
  * Created by Thomas on 09/10/2014.
  */
-import static com.example.thomas.familyheroes.CommonUtilities.SERVER_URL;
-import static com.example.thomas.familyheroes.CommonUtilities.TAG;
-import static com.example.thomas.familyheroes.CommonUtilities.displayMessage;
+import static com.example.thomas.familyheroes.MainActivity.CommonUtilities.SERVER_URL;
+import static com.example.thomas.familyheroes.MainActivity.CommonUtilities.TAG;
+import static com.example.thomas.familyheroes.MainActivity.CommonUtilities.displayMessage;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -21,6 +21,7 @@ import java.util.Random;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.thomas.familyheroes.R;
 import com.google.android.gcm.GCMRegistrar;
 
 public class ServerUtilities {

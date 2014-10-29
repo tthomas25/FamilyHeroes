@@ -1,4 +1,4 @@
-package com.example.thomas.familyheroes;
+package com.example.thomas.familyheroes.MainActivity;
 
 /**
  * Created by Thomas on 09/10/2014.
@@ -6,6 +6,8 @@ package com.example.thomas.familyheroes;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+
+import com.example.thomas.familyheroes.R;
 
 public class AlertDialogManager {
 

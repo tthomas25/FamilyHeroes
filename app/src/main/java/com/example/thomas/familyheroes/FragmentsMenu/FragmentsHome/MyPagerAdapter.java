@@ -1,4 +1,4 @@
-package com.example.thomas.familyheroes;
+package com.example.thomas.familyheroes.FragmentsMenu.FragmentsHome;
 
 import android.support.v4.view.PagerAdapter;
 

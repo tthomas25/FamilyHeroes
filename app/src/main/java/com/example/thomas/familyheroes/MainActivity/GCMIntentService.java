@@ -1,4 +1,4 @@
-package com.example.thomas.familyheroes;
+package com.example.thomas.familyheroes.MainActivity;
 
 /**
  * Created by Thomas on 09/10/2014.
@@ -10,10 +10,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.example.thomas.familyheroes.R;
 import com.google.android.gcm.GCMBaseIntentService;
 
-import static com.example.thomas.familyheroes.CommonUtilities.SENDER_ID;
-import static com.example.thomas.familyheroes.CommonUtilities.displayMessage;
+import static com.example.thomas.familyheroes.MainActivity.CommonUtilities.SENDER_ID;
+import static com.example.thomas.familyheroes.MainActivity.CommonUtilities.displayMessage;
 
 public class GCMIntentService extends GCMBaseIntentService{
 

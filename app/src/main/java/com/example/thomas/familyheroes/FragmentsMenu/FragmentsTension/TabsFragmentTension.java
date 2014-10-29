@@ -1,29 +1,37 @@
-package com.example.thomas.familyheroes;
+package com.example.thomas.familyheroes.FragmentsMenu.FragmentsTension;
 
 /**
- * Created by Thomas on 21/10/2014.
+ * Created by Thomas on 28/10/2014.
  */
+import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 
+import com.example.thomas.familyheroes.R;
+import com.example.thomas.familyheroes.Utilities.SimpleTabDefinition;
+import com.example.thomas.familyheroes.Utilities.TabDefinition;
+
 /**
  * A {@link Fragment} used to switch between tabs.
  */
-public class TabsFragment extends Fragment implements OnTabChangeListener {
+public class TabsFragmentTension extends Fragment implements OnTabChangeListener {
     //
     // Constants
     //
     private final TabDefinition[] TAB_DEFINITIONS = new TabDefinition[] {
-            new SimpleTabDefinition(R.id.tab1, R.layout.fragment_graph_cardiaque, R.string.nothing, new GraphiqueCardiaqueFragment()),
-            new SimpleTabDefinition(R.id.tab2, R.layout.fragment_historique_cardiaque, R.string.nothing, new HistoriqueCardiaqueFragment()),
+            new SimpleTabDefinition(R.id.tab1, R.layout.fragment_graph_tension, R.string.nothing, new GraphiqueTensionFragment()),
+            new SimpleTabDefinition(R.id.tab2, R.layout.fragment_historique_tension, R.string.nothing, new HistoriqueTensionFragment()),
     };
 
     //
@@ -64,10 +72,23 @@ public class TabsFragment extends Fragment implements OnTabChangeListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        _viewRoot = inflater.inflate(R.layout.tabs_fragment, null);
+        _viewRoot = inflater.inflate(R.layout.tabs_fragment_tension, null);
 
         _tabHost = (TabHost)_viewRoot.findViewById(android.R.id.tabhost);
         _tabHost.setup();
+
+        /* First, get the Display from the WindowManager */
+        Display display = ((WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+
+        // check display size to figure out what image resolution will be loaded
+        DisplayMetrics metrics = new DisplayMetrics();
+        display.getMetrics(metrics);
+
+        Point size = new Point();
+        display.getRealSize(size);
+        display.getSize(size);
+        int width = size.x;
+
 
         for (TabDefinition tab : TAB_DEFINITIONS) {
             _tabHost.addTab(createTab(inflater, _tabHost, _viewRoot, tab));
@@ -75,6 +96,14 @@ public class TabsFragment extends Fragment implements OnTabChangeListener {
 
         _tabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.drawable.stats_select);
         _tabHost.getTabWidget().getChildAt(1).setBackgroundResource(R.drawable.clock);
+
+        _tabHost.getTabWidget().getChildAt(0).getLayoutParams().width = width/2;
+        _tabHost.getTabWidget().getChildAt(0).getLayoutParams().height = 180;
+
+        _tabHost.getTabWidget().getChildAt(1).getLayoutParams().width = width/2;
+        _tabHost.getTabWidget().getChildAt(1).getLayoutParams().height = 180;
+
+        _tabHost.getTabWidget().getChildAt(0).invalidate();
 
         return _viewRoot;
     }
@@ -128,4 +157,6 @@ public class TabsFragment extends Fragment implements OnTabChangeListener {
 
 
     }
+
+
 }

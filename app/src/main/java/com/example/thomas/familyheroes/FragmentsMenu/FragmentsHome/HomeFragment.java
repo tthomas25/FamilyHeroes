@@ -1,28 +1,28 @@
-package com.example.thomas.familyheroes;
+package com.example.thomas.familyheroes.FragmentsMenu.FragmentsHome;
 
 /**
  * Created by Thomas on 09/10/2014.
  */
-import android.app.Activity;
 
-import android.app.FragmentManager;
-import android.app.ProgressDialog;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.thomas.familyheroes.Utilities.JSONParser;
+import com.example.thomas.familyheroes.MainActivity.MainActivity;
+import com.example.thomas.familyheroes.R;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -39,7 +39,6 @@ import java.util.Vector;
 
 public class HomeFragment extends Fragment {
 
-    private ProgressDialog pDialog;
 
     private PagerAdapter mPagerAdapter;
 
@@ -128,10 +127,9 @@ public class HomeFragment extends Fragment {
         // Affectation de l'adapter au ViewPager
         pager.setAdapter(this.mPagerAdapter);
 
+
         return rootView;
     }
-
-
 
 
     class getSauvegardeDetails extends AsyncTask<String, String, String> {
@@ -350,14 +348,7 @@ public class HomeFragment extends Fragment {
     }
 
 
-    public void onDestroyView() {
-        super.onDestroyView();
-        android.support.v4.app.FragmentManager fm = getActivity().getSupportFragmentManager();
-        Fragment fragment = (fm.findFragmentById(R.id.frame_container));
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.remove(fragment);
-        ft.commit();
-    }
+
 
 
 }

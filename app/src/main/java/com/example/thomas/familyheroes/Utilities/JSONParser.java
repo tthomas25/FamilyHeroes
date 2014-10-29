@@ -1,4 +1,4 @@
-package com.example.thomas.familyheroes;
+package com.example.thomas.familyheroes.Utilities;
 
 /**
  * Created by Thomas on 12/10/2014.

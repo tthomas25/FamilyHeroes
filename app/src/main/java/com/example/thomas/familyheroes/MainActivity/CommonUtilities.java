@@ -1,4 +1,4 @@
-package com.example.thomas.familyheroes;
+package com.example.thomas.familyheroes.MainActivity;
 
 /**
  * Created by Thomas on 09/10/2014.

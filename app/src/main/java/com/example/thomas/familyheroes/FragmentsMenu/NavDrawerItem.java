@@ -1,4 +1,4 @@
-package com.example.thomas.familyheroes;
+package com.example.thomas.familyheroes.FragmentsMenu;
 
 /**
  * Created by Thomas on 09/10/2014.

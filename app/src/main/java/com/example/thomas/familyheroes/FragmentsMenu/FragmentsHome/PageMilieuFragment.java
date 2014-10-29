@@ -1,6 +1,5 @@
-package com.example.thomas.familyheroes;
+package com.example.thomas.familyheroes.FragmentsMenu.FragmentsHome;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -8,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.thomas.familyheroes.R;
+import com.example.thomas.familyheroes.Utilities.JSONParser;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -25,7 +27,7 @@ import java.util.List;
 /**
  * Created by Thomas on 13/10/2014.
  */
-public class PageDroiteFragment extends Fragment {
+public class PageMilieuFragment extends Fragment {
 
     String id = "";
     String id_personne="";
@@ -45,7 +47,7 @@ public class PageDroiteFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         LayoutInflater lf = getActivity().getLayoutInflater();
-        View view =  lf.inflate(R.layout.page_droite_layout, container, false);
+        View view =  lf.inflate(R.layout.page_milieu_layout, container, false);
 
         id = this.getArguments().getString("id_user");
         id_personne = this.getArguments().getString("id_personne");
@@ -78,7 +80,7 @@ public class PageDroiteFragment extends Fragment {
                 JSONArray tasksObj2 = tasks
                         .getJSONArray("task");
 
-                JSONObject tasks1 = tasksObj2.getJSONObject(2);
+                JSONObject tasks1 = tasksObj2.getJSONObject(1);
 
                 // check your log for json response
                 Log.d("Tasks Details", tasks1.toString());

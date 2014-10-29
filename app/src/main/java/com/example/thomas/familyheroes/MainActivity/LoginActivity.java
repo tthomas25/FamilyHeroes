@@ -1,13 +1,12 @@
-package com.example.thomas.familyheroes;
+package com.example.thomas.familyheroes.MainActivity;
 
-import static com.example.thomas.familyheroes.CommonUtilities.SENDER_ID;
-import static com.example.thomas.familyheroes.CommonUtilities.SERVER_URL;
+import static com.example.thomas.familyheroes.MainActivity.CommonUtilities.SENDER_ID;
+import static com.example.thomas.familyheroes.MainActivity.CommonUtilities.SERVER_URL;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -15,8 +14,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
+
+import com.example.thomas.familyheroes.Utilities.JSONParser;
+import com.example.thomas.familyheroes.R;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -24,10 +24,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 

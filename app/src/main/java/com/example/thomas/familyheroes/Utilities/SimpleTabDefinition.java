@@ -1,15 +1,13 @@
-package com.example.thomas.familyheroes;
+package com.example.thomas.familyheroes.Utilities;
 
 /**
  * Created by Thomas on 21/10/2014.
  */
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
 
 /**

@@ -1,11 +1,11 @@
-package com.example.thomas.familyheroes;
+package com.example.thomas.familyheroes.FragmentsMenu;
 
 /**
  * Created by Thomas on 09/10/2014.
  */
 
 
-import com.example.thomas.familyheroes.NavDrawerItem;
+import com.example.thomas.familyheroes.R;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 public class NavDrawerListAdapter extends BaseAdapter {
 
