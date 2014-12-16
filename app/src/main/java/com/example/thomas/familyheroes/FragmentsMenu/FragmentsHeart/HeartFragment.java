@@ -4,15 +4,21 @@ package com.example.thomas.familyheroes.FragmentsMenu.FragmentsHeart;
  * Created by Thomas on 20/10/2014.
  */
 
+import android.content.Context;
+import android.graphics.Point;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.thomas.familyheroes.Utilities.JSONParser;
@@ -37,6 +43,7 @@ public class HeartFragment extends Fragment {
     private static final String url_heart_details = "http://thomaslanternier.fr/family_heroes/app/getSauvegarde.php";
 
     TextView rythme_cardiaque;
+    ImageView rythme_image;
 
     public HeartFragment(){}
 
@@ -52,6 +59,10 @@ public class HeartFragment extends Fragment {
 
         id = this.getArguments().getString("id");
         prenom = this.getArguments().getString("prenom");
+
+
+
+
 
         return rootView;
     }
@@ -103,6 +114,27 @@ public class HeartFragment extends Fragment {
                             JSONObject heart = heartObj.getJSONObject(0);
 
                             rythme_cardiaque = (TextView) getActivity().findViewById(R.id.rythme);
+                            rythme_image = (ImageView) getActivity().findViewById(R.id.imageRythme);
+
+         /* First, get the Display from the WindowManager */
+                            Display display = ((WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+
+                            // check display size to figure out what image resolution will be loaded
+                            DisplayMetrics metrics = new DisplayMetrics();
+                            display.getMetrics(metrics);
+
+                            Point size = new Point();
+                            display.getRealSize(size);
+                            display.getSize(size);
+                            int width = size.x;
+                            int height = size.y;
+
+                            rythme_cardiaque.setHeight(height/2);
+                            rythme_cardiaque.setWidth(width);
+
+                            rythme_image.getLayoutParams().height = height/2;
+                            rythme_image.getLayoutParams().width = width;
+
 
 
                             int rythme = Integer.parseInt(heart.getString("rythme_cardiaque"));
@@ -110,17 +142,18 @@ public class HeartFragment extends Fragment {
                             if(rythme < 70)
                             {
 
-                                rythme_cardiaque.setBackgroundResource(R.drawable.normal);
+                                rythme_image.setBackgroundResource(R.drawable.normal);
 
                             }
                             else if(rythme >= 70 && rythme <= 110)
                             {
-                                rythme_cardiaque.setBackgroundResource(R.drawable.normal);
+                                rythme_image.setBackgroundResource(R.drawable.normal);
                             }
                             else if(rythme > 110)
                             {
-                                rythme_cardiaque.setBackgroundResource(R.drawable.danger);
+                                rythme_image.setBackgroundResource(R.drawable.danger);
                             }
+
 
                             rythme_cardiaque.setText(""+rythme);
 

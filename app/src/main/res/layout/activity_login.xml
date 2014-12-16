@@ -3,61 +3,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/fond">
+    android:background="@color/list_background"
+    android:weightSum="1">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:layout_marginTop="20dip"
-        android:gravity="center"
-        android:text="Email"
-        android:textColor="@color/list_background"
-        android:textSize="25dip"
-        android:textStyle="bold" />
+    <ImageView
+        android:layout_width="371dp"
+        android:layout_height="150dp"
+        android:id="@+id/imageView"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/logo_loader"
+        android:layout_marginLeft="40sp"
+        android:layout_marginRight="40sp"
+        android:layout_marginTop="40sp" />
 
     <EditText android:id="@+id/txtLogin"
-        android:layout_width="fill_parent"
+        android:layout_width="300sp"
         android:layout_height="50dip"
         android:layout_margin="10dip"
         android:layout_marginBottom="20dip"
         android:background="#ffffff"
         android:gravity="center"
-        android:inputType="textEmailAddress" />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:gravity="center"
-        android:text="Mot de passe"
-        android:textColor="@color/list_background"
-        android:textSize="25dip"
-        android:textStyle="bold" />
+        android:inputType="textEmailAddress"
+        android:hint="Email"
+        android:layout_gravity="center_horizontal" />
 
     <EditText android:id="@+id/txtMdp"
-        android:layout_width="fill_parent"
+        android:layout_width="300sp"
         android:layout_height="50dip"
         android:layout_margin="10dip"
         android:layout_marginBottom="20dip"
         android:background="#ffffff"
         android:gravity="center"
         android:password="true"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:hint="Mot de passe"
+        android:layout_gravity="center_horizontal" />
 
     <Button
         android:id="@+id/btnRegister"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="300sp"
+        android:layout_height="70sp"
         android:layout_margin="10dip"
         android:gravity="center_vertical|center_horizontal"
-        android:text="Connexion"
-        android:background="@color/list_background"
+        android:text="CONNEXION"
+        android:background="@color/green_family_heroes"
         android:textColor="#ffffff"
         android:textSize="25dip"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
 

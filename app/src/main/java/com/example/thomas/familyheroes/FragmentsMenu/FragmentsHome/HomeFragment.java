@@ -4,12 +4,15 @@ package com.example.thomas.familyheroes.FragmentsMenu.FragmentsHome;
  * Created by Thomas on 09/10/2014.
  */
 
+import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.v4.app.FragmentManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +20,13 @@ import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.thomas.familyheroes.Utilities.JSONParser;
-import com.example.thomas.familyheroes.MainActivity.MainActivity;
 import com.example.thomas.familyheroes.R;
 
 import org.apache.http.NameValuePair;
@@ -80,6 +85,9 @@ public class HomeFragment extends Fragment {
     String id = "";
     String id_personne="";
     String prenom = "";
+
+    private int width;
+    private int height;
 
 
     public HomeFragment() {
@@ -168,6 +176,19 @@ public class HomeFragment extends Fragment {
                             // get first product object from JSON Array
                             JSONObject sauvegarde = sauvegardeObj.getJSONObject(0);
 
+                            /* First, get the Display from the WindowManager */
+                            Display display = ((WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+
+                            // check display size to figure out what image resolution will be loaded
+                            DisplayMetrics metrics = new DisplayMetrics();
+                            display.getMetrics(metrics);
+
+                            Point size = new Point();
+                            display.getRealSize(size);
+                            display.getSize(size);
+                            width = size.x;
+                            height = size.y;
+
 
                             txtProfil = (TextView) getActivity().findViewById(R.id.profil);
                             txtRythme = (TextView) getActivity().findViewById(R.id.rythme_cardiaque);
@@ -185,7 +206,37 @@ public class HomeFragment extends Fragment {
                             imageTension = (ImageView) getActivity().findViewById(R.id.imageTension);
                             imageTemperature = (ImageView) getActivity().findViewById(R.id.imageTemp);
 
-                            fleche = (ImageView) getActivity().findViewById(R.id.flecheTension);
+                            imageProfil.getLayoutParams().height = width/2;
+                            imageProfil.getLayoutParams().width = width/2;
+
+
+                            imageRythme.getLayoutParams().height = width/2;
+                            imageRythme.getLayoutParams().width = width/2;
+                            txtRythme1.getLayoutParams().width = width/2;
+                            txtRythme2.getLayoutParams().width = width/2;
+
+                            imageTension.getLayoutParams().height = width/2;
+                            imageTension.getLayoutParams().width = width/2;
+                            txtTension1.getLayoutParams().width = width/2;
+                            txtTension2.getLayoutParams().width = width/2;
+
+                            RelativeLayout.LayoutParams llp3 = (RelativeLayout.LayoutParams)txtTension.getLayoutParams();
+                            llp3.setMargins(0, 0, width/6, width/9); // llp.setMargins(left, top, right, bottom);
+                            txtTension.setLayoutParams(llp3);
+
+
+                            imageTemperature.getLayoutParams().height = width/2;
+                            imageTemperature.getLayoutParams().width = width/2;
+                            txtTemperature1.getLayoutParams().width = width/2;
+                            txtTemperature2.getLayoutParams().width = width/2;
+
+                            RelativeLayout.LayoutParams llp2 = (RelativeLayout.LayoutParams)txtTemperature.getLayoutParams();
+                            llp2.setMargins(0, 0, width/8, width/6); // llp.setMargins(left, top, right, bottom);
+                            txtTemperature.setLayoutParams(llp2);
+
+
+                            RelativeLayout.LayoutParams llp = (RelativeLayout.LayoutParams)txtRythme.getLayoutParams();
+
 
                             int rythme = Integer.parseInt(sauvegarde.getString("rythme_cardiaque"));
                             int temperature = Integer.parseInt(sauvegarde.getString("temperature"));
@@ -193,6 +244,18 @@ public class HomeFragment extends Fragment {
 
                             imageProfil.setImageResource(R.drawable.profil);
                             txtProfil.setText(prenom);
+
+                            if(rythme<100)
+                            {
+                                llp.setMargins(0, 0, width/25, width/8); // llp.setMargins(left, top, right, bottom);
+                                txtRythme.setLayoutParams(llp);
+                            }
+                            else if(rythme>100)
+                            {
+                                llp.setMargins(0, 0, width/20, width/9); // llp.setMargins(left, top, right, bottom);
+                                txtRythme.setTextSize(17);
+                                txtRythme.setLayoutParams(llp);
+                            }
 
 
                             if(rythme < 70)
@@ -231,31 +294,25 @@ public class HomeFragment extends Fragment {
                             txtTemperature.setText(""+temperature);
                             txtTemperature2.setText(""+temperature+"° celsius");
 
-                            imageTension.setImageResource(R.drawable.tension);
-                            fleche.setImageResource(R.drawable.tension_fleche);
+                            imageTension.setImageResource(R.drawable.tension_normale);
+
 
                             txtTension.setText(""+(tension/10));
 
                             if((tension/10)<9)
                             {
                                 txtTension1.setText("Tension : Faible");
-                                fleche.setRotation(-60);
-                                fleche.setTranslationX(-100);
-                                fleche.setTranslationY(60);
+                                imageTension.setImageResource(R.drawable.tension_faible);
                             }
                             else if((tension/10) >=9 && (tension/10) <=15)
                             {
                                 txtTension1.setText("Tension : Normale");
-                                fleche.setRotation(0);
-
+                                imageTension.setImageResource(R.drawable.tension_normale);
                             }
                             else if((tension/10) > 15)
                             {
                                 txtTension1.setText("Tension : Elevée");
-
-                                fleche.setRotation(60);
-                                fleche.setTranslationX(100);
-                                fleche.setTranslationY(60);
+                                imageTension.setImageResource(R.drawable.tension_elevee);
                             }
 
                             txtTension2.setText(""+tension+" mm de mercure");
@@ -317,6 +374,10 @@ public class HomeFragment extends Fragment {
                             age = (TextView) getActivity().findViewById(R.id.age);
                             nom = (TextView) getActivity().findViewById(R.id.nom);
                             backProfil = (ImageView) getActivity().findViewById(R.id.backProfil);
+
+                            RelativeLayout.LayoutParams llp1 = (RelativeLayout.LayoutParams)age.getLayoutParams();
+                            llp1.setMargins(width/14, width/9, 0, 0); // llp.setMargins(left, top, right, bottom)
+                            age.setLayoutParams(llp1);
 
                             id_personne = personneAgee.getString("id");
                             age.setText(personneAgee.getString("age"));

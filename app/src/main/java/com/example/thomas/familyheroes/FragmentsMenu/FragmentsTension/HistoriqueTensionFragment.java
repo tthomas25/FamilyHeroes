@@ -40,7 +40,7 @@ public class HistoriqueTensionFragment extends Fragment{
 
     public static String id;
 
-    private static final String url_alerte_details = "http://thomaslanternier.fr/family_heroes/app/getAlerte.php";
+    private static final String url_alerte_details = "http://thomaslanternier.fr/family_heroes/app/getHistoriqueAlerte.php";
 
     JSONParser jsonParser = new JSONParser();
 

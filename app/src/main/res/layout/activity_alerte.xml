@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fond">
+
+    <ImageView
+        android:id="@+id/imageAlerte"
+        android:layout_width="match_parent"
+        android:layout_height="250sp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/alerte_fond" />
+
+
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="250sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/alerte"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="center"
+        android:textSize="50sp"
+        android:textColor="#ffffff"
+        android:text="ALERTE"
+        android:shadowColor="#000000"
+        android:shadowRadius="10"
+        android:shadowDx="4"
+        android:shadowDy="4"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40sp"
+        android:id="@+id/textView"
+        android:layout_below="@+id/imageAlerte"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:background="#576873"
+        android:gravity="center_vertical|center_horizontal"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:textSize="20sp" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20sp"
+        android:text="Voir la position de la victime"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:id="@+id/voir_position"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10sp"
+        android:background="#525252"
+        android:padding="5sp"
+        android:drawablePadding="30sp"
+        android:drawableRight="@drawable/ic_photo_camera_white_48dp"/>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20sp"
+        android:text="Je maîtrise la situation !"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:id="@+id/got_it"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80sp"
+        android:background="@color/green_family_heroes"
+        android:padding="5sp"
+        android:drawablePadding="30sp"
+        android:drawableRight="@drawable/ic_done_all_white_48dp"/>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20sp"
+        android:text="Prévenir un autre héro !"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:id="@+id/call_over_hero"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150sp"
+        android:background="#9d3732"
+        android:padding="5sp"
+        android:drawablePadding="30sp"
+        android:drawableRight="@drawable/ic_not_interested_white_48dp"/>
+
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="19/11/14 - 12H30"
+    android:id="@+id/date_alerte"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="70dp"
+    android:gravity="center_vertical|center_horizontal"
+    android:textColor="#ffffff"
+    android:textSize="25sp"
+    android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chute - Salon"
+        android:id="@+id/lieu_alerte"
+        android:gravity="center_vertical|center_horizontal"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_alignBottom="@+id/imageAlerte"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60sp" />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/alerte_validee"
+        android:layout_alignTop="@+id/got_it"
+        android:layout_marginLeft="40sp"
+        android:layout_marginTop="20sp"
+        android:textSize="24sp"
+        android:textAlignment="center"
+        android:textColor="@color/green_family_heroes"
+        android:textStyle="bold"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:visibility="invisible"
+        android:src="@drawable/aaa" />
+
+
+</RelativeLayout>

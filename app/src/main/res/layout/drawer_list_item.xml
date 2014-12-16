@@ -10,7 +10,7 @@
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:contentDescription="@string/desc_list_item_icon"
-        android:src="@drawable/ic_home"
+        android:src="@drawable/ic_launcher"
         android:layout_margin="12sp"
         android:layout_centerInParent="true"
         />

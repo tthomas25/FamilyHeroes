@@ -8,8 +8,11 @@
         android:layout_width="130sp"
         android:layout_height="130sp"
         android:id="@+id/backProfil"
+        android:layout_alignLeft="@+id/imageProfil"
+        android:layout_alignTop="@+id/imageProfil"
+        android:layout_marginTop="30sp"
         android:layout_marginLeft="30sp"
-        android:layout_below="@+id/txtRythme" />
+        />
 
     <ImageView
         android:layout_width="190sp"
@@ -17,10 +20,11 @@
         android:id="@+id/imageProfil"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="50sp" />
+        android:layout_marginTop="50sp"
+         />
 
     <TextView
-        android:layout_width="40sp"
+        android:layout_width="50sp"
         android:layout_height="40sp"
         android:layout_alignLeft="@+id/imageProfil"
         android:layout_alignTop="@+id/imageProfil"
@@ -28,6 +32,7 @@
         android:layout_marginTop="45sp"
         android:textColor="#ffffff"
         android:textSize="20sp"
+        android:textStyle="bold"
         android:id="@+id/age"/>
 
     <TextView
@@ -80,15 +85,13 @@
         android:layout_alignStart="@+id/imageRythme" />
 
     <TextView android:id="@+id/rythme_cardiaque"
-        android:layout_width="40sp"
+        android:layout_width="50sp"
         android:layout_height="40sp"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textColor="#ffffff"
         android:textAlignment="center"
         android:layout_alignBottom="@+id/imageRythme"
         android:layout_alignEnd="@+id/imageRythme"
-        android:layout_marginRight="33sp"
-        android:layout_marginBottom="52sp"
         android:layout_alignParentStart="false"
         android:layout_alignParentEnd="false"
         android:textStyle="bold" />
@@ -104,19 +107,11 @@
         android:padding="1dp"
         android:textSize="20sp" />
 
-    <ImageView
-        android:layout_width="40dip"
-        android:layout_height="80dip"
-        android:id="@+id/flecheTension"
-        android:layout_alignBottom="@+id/imageTension"
-        android:layout_alignStart="@+id/imageTension"
-        android:layout_marginLeft="75sp"
-        android:layout_marginBottom="70dp"/>
 
     <TextView android:id="@+id/tension"
         android:layout_width="40sp"
         android:layout_height="40sp"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textColor="@color/list_background"
         android:textAlignment="center"
         android:layout_alignBottom="@+id/imageTension"
@@ -132,12 +127,13 @@
         android:layout_height="40dip"
         android:text=""
         android:id="@+id/txtTension"
+        android:layout_toEndOf="@+id/imageTension"
         android:gravity="center"
         android:textColor="@color/list_background"
         android:textStyle="bold"
         android:textSize="14dip"
         android:layout_alignTop="@+id/imageTension"
-        android:layout_alignParentStart="true" />
+        android:layout_alignStart="@+id/imageTension" />
 
     <TextView
         android:layout_width="190dip"
@@ -180,12 +176,13 @@
         android:layout_height="40dip"
         android:text=""
         android:id="@+id/txtTemperature1"
+        android:layout_toEndOf="@+id/imageTemp"
         android:gravity="center"
         android:textColor="@color/list_background"
         android:textStyle="bold"
         android:textSize="14dip"
-        android:layout_below="@+id/imageRythme"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignTop="@+id/imageTemp"
+        android:layout_alignStart="@+id/imageTemp" />
 
     <TextView
         android:layout_width="190dip"
@@ -204,7 +201,7 @@
         android:layout_height="50sp"
         android:id="@+id/imageView3"
         android:layout_alignParentStart="true"
-        android:src="@drawable/user"
+        android:src="@drawable/ic_portrait_white_48dp"
         android:padding="5sp"/>
 
     <TextView

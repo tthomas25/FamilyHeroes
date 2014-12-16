@@ -38,7 +38,7 @@ public class GraphiqueTensionFragment extends Fragment {
         WebView wv = (WebView) rootView.findViewById(R.id.graph_web);
         wv.getSettings().setJavaScriptEnabled(true);
 
-        wv.loadUrl("http://thomaslanternier.fr/family_heroes/app/graph_cardiaque.php?id_user="+id);
+        wv.loadUrl("http://thomaslanternier.fr/family_heroes/app/graph_tension.php?id_user="+id);
 
         return rootView;
     }

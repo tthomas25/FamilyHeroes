@@ -28,22 +28,15 @@
     <string name="tab_title_1">title 1</string>
     <string name="tab_title_2">title 2</string>
 
-    <!--<string-array name="nav_drawer_items">
-        <item >Home</item>
-        <item >Find People</item>
-        <item >Photos</item>
-        <item >Communities</item>
-        <item >Pages</item>
-        <item >What\'s Hot</item>
-    </string-array>-->
 
     <array name="nav_drawer_icons">
-        <item>@drawable/user</item>
-        <item>@drawable/heart</item>
-        <item>@drawable/perf</item>
+        <item>@drawable/ic_web_white_48dp</item>
+        <item>@drawable/ic_favorite_outline_white_48dp</item>
+        <item>@drawable/ic_invert_colors_white_48dp</item>
         <item>@drawable/temp</item>
-        <item>@drawable/calendar</item>
-        <item>@drawable/param</item>
+        <item>@drawable/ic_event_white_48dp</item>
+        <item>@drawable/ic_settings_white_48dp</item>
+        <item>@drawable/ic_exit_to_app_white_48dp</item>
     </array>
 
     <string name="desc_list_item_icon">Item Icon</string>
